@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tendências · Arquitetura & Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F8F7F5;--surface:#FFF;--coal:#1A1A1A;--mid:#6B6B6B;--light:#D4D0CB;--terra:#C4836A;--terra2:#F2E8E4;--green:#5E8C6A;--blue:#5C7A9A}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--coal);min-height:100vh;font-size:14px}
+
+
+
+/* HEADER */
+header{background:var(--surface);border-bottom:1px solid var(--light);padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.logo{font-family:'Playfair Display',serif;font-size:19px}
+.logo span{color:var(--terra);font-style:italic}
+.header-right{display:flex;align-items:center;gap:16px}
+.header-tag{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.btn-history{background:none;border:1px solid var(--light);border-radius:3px;padding:5px 10px;font-size:11px;color:var(--mid);cursor:pointer;font-family:inherit}
+.btn-history:hover{border-color:var(--terra);color:var(--terra)}
+.fav-count{background:var(--terra);color:#fff;border-radius:100px;padding:2px 7px;font-size:10px;font-weight:700;margin-left:4px}
+
+/* HERO */
+.hero{padding:44px 32px 28px;max-width:900px;margin:0 auto;text-align:center}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin-bottom:12px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,46px);font-weight:400;line-height:1.2;margin-bottom:12px}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero p{color:var(--mid);font-size:13px;font-weight:300;max-width:460px;margin:0 auto 28px;line-height:1.7}
+
+/* MAIN TABS */
+.main-tabs{display:inline-flex;border:1.5px solid var(--light);border-radius:4px;overflow:hidden;margin-bottom:22px}
+.main-tab{padding:8px 22px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;background:var(--surface);color:var(--mid);border:none;font-family:inherit;transition:all .18s;white-space:nowrap}
+.main-tab.active{background:var(--coal);color:#fff}
+
+/* CHIP GROUPS */
+.chip-groups{max-width:800px;margin:0 auto 4px}
+.chip-group{margin-bottom:10px}
+.chip-group-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:7px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{background:var(--surface);border:1px solid var(--light);border-radius:100px;padding:4px 13px;font-size:11px;font-weight:500;color:var(--mid);cursor:pointer;transition:all .18s;white-space:nowrap}
+.chip:hover{border-color:var(--coal);color:var(--coal)}
+.chip.active{background:var(--terra);border-color:var(--terra);color:#fff}
+
+/* SOURCES */
+.sources-panel{background:var(--surface);border:1.5px solid var(--light);border-radius:4px;padding:16px 20px;margin:14px auto;max-width:720px}
+.src-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+.src-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.src-arrow{font-size:10px;color:var(--mid);transition:transform .2s}
+.src-arrow.open{transform:rotate(180deg)}
+.src-grid{display:none;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-top:12px}
+.src-grid.open{display:grid}
+.src-toggle{display:flex;align-items:center;gap:6px;padding:6px 10px;border:1.5px solid var(--light);border-radius:3px;cursor:pointer;transition:all .18s;background:var(--bg)}
+.src-toggle.sel{border-color:var(--terra);background:var(--terra2)}
+.src-name{font-size:11px;font-weight:600;color:var(--mid)}
+.src-toggle.sel .src-name{color:var(--terra)}
+.src-check{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--light);margin-left:auto;flex-shrink:0}
+.src-toggle.sel .src-check{background:var(--terra);border-color:var(--terra)}
+.custom-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.custom-tag{display:inline-flex;align-items:center;gap:5px;background:#EEF2FF;border:1.5px solid #A5B4FC;border-radius:3px;padding:3px 8px;font-size:11px;font-weight:600;color:#3730A3}
+.custom-tag button{background:none;border:none;cursor:pointer;color:#6366F1;font-size:12px;line-height:1;padding:0}
+.custom-add{display:flex;gap:7px;margin-top:8px}
+.custom-add input{flex:1;border:1.5px solid var(--light);border-radius:3px;padding:7px 11px;font-family:inherit;font-size:12px;outline:none;color:var(--coal);background:var(--bg)}
+.custom-add input:focus{border-color:var(--terra)}
+.btn-add{background:var(--coal);color:#fff;border:none;border-radius:3px;padding:7px 12px;font-family:inherit;font-size:11px;font-weight:700;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.src-hint{font-size:11px;color:var(--mid);margin-top:8px;font-weight:300}
+.domain-note{font-size:11px;color:#B45309;background:#FFFBEB;border:1px solid #FDE68A;border-radius:3px;padding:5px 9px;margin-top:8px;display:none}
+
+/* SEARCH */
+.search-wrap{max-width:720px;margin:0 auto}
+.search-box{display:flex;background:var(--surface);border:1.5px solid var(--light);border-radius:4px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.07);transition:border-color .2s}
+.search-box:focus-within{border-color:var(--terra)}
+.search-box input{flex:1;border:none;outline:none;padding:11px 18px;font-family:inherit;font-size:13px;font-weight:300;color:var(--coal);background:transparent}
+.search-box input::placeholder{color:#bbb}
+.btn-search{background:var(--terra);color:#fff;border:none;padding:11px 24px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .2s}
+.btn-search:hover{background:#b07260}
+.btn-search:disabled{background:var(--light);cursor:not-allowed}
+
+/* MAIN */
+main{max-width:1160px;margin:0 auto;padding:40px 32px 80px}
+
+/* STATES */
+.state-empty{text-align:center;padding:70px 20px;color:var(--mid)}
+.state-empty .icon{font-size:34px;opacity:.2;margin-bottom:12px}
+.state-loading{display:flex;flex-direction:column;align-items:center;padding:60px 20px;gap:16px}
+.loader{width:30px;height:30px;border:2px solid var(--light);border-top-color:var(--terra);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-step{font-size:13px;color:var(--terra);font-weight:400}
+.state-error{background:#FEF2F2;border:1px solid #FECACA;border-radius:4px;padding:20px;color:#991B1B;font-size:13px;text-align:center}
+
+/* RESULTS META */
+.results-meta{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--light);padding-bottom:16px;margin-bottom:24px;flex-wrap:wrap;gap:10px}
+.results-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400}
+.results-title em{font-style:italic;color:var(--terra)}
+.results-actions{display:flex;gap:8px;align-items:center}
+.results-date{font-size:11px;color:var(--mid)}
+.btn-sm{background:none;border:1px solid var(--light);border-radius:3px;padding:5px 11px;font-size:11px;font-weight:600;color:var(--mid);cursor:pointer;font-family:inherit;transition:all .18s;white-space:nowrap}
+.btn-sm:hover{border-color:var(--terra);color:var(--terra)}
+.btn-sm.active{background:var(--terra);border-color:var(--terra);color:#fff}
+.btn-pdf{background:var(--coal);color:#fff;border:none;border-radius:3px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.04em}
+.btn-pdf:hover{background:#333}
+
+/* SUMMARY */
+.summary-box{background:var(--coal);color:#fff;border-radius:2px;padding:24px 28px;margin-bottom:24px}
+.summary-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:8px}
+.summary-box p{font-size:14px;font-weight:300;line-height:1.8;color:rgba(255,255,255,.85)}
+
+/* TIMELINE */
+.timeline{display:flex;gap:0;margin-bottom:24px;overflow-x:auto;padding-bottom:4px}
+.tl-item{flex:1;min-width:100px;text-align:center;position:relative;padding:0 8px}
+.tl-item::before{content:'';position:absolute;top:14px;left:0;right:0;height:2px;background:var(--light)}
+.tl-item:first-child::before{left:50%}
+.tl-item:last-child::before{right:50%}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--terra);margin:0 auto 8px;position:relative;z-index:1;border:2px solid var(--surface)}
+.tl-year{font-size:10px;font-weight:700;color:var(--terra);margin-bottom:3px}
+.tl-text{font-size:11px;color:var(--mid);font-weight:300;line-height:1.4}
+
+/* CARDS GRID */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-bottom:32px}
+.cards-grid.list-view{grid-template-columns:1fr}
+.cards-grid.list-view .trend-card{flex-direction:row;max-height:180px}
+.cards-grid.list-view .card-img-wrap{width:200px;flex-shrink:0;height:100%}
+.cards-grid.list-view .card-img-wrap img{height:100%}
+
+/* CARD */
+.trend-card{background:var(--surface);border:1px solid var(--light);border-radius:2px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.06);animation:fadeUp .4s ease both;display:flex;flex-direction:column;position:relative}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card-img-wrap{position:relative;height:170px;overflow:hidden;background:#eee;flex-shrink:0}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.card-img-wrap:hover img{transform:scale(1.05)}
+.card-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 55%)}
+.card-img-src{position:absolute;bottom:7px;right:8px;font-size:9px;color:rgba(255,255,255,.8);font-weight:600;background:rgba(0,0,0,.3);padding:2px 6px;border-radius:2px;backdrop-filter:blur(4px)}
+.btn-fav{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.35);border:none;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;backdrop-filter:blur(4px);transition:background .2s;z-index:2}
+.btn-fav:hover{background:rgba(0,0,0,.6)}
+.btn-fav.faved{background:rgba(196,131,106,.85)}
+.card-bar{height:3px;flex-shrink:0}
+.card-body{padding:18px;flex:1;display:flex;flex-direction:column}
+.card-cat{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.card-title{font-family:'Playfair Display',serif;font-size:16px;line-height:1.3;margin-bottom:8px}
+.card-desc{font-size:12px;color:var(--mid);font-weight:300;line-height:1.7;margin-bottom:12px;flex:1}
+
+/* SWATCHES — clicáveis */
+.swatches{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.swatch{display:flex;align-items:center;gap:5px;background:var(--bg);border-radius:100px;padding:3px 9px 3px 3px;font-size:11px;color:var(--mid);font-weight:500;cursor:pointer;border:1px solid transparent;transition:border-color .2s}
+.swatch:hover{border-color:var(--terra)}
+.swatch-dot{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.08);flex-shrink:0}
+.swatch-copied{font-size:10px;color:var(--terra);font-weight:600;opacity:0;transition:opacity .3s;margin-left:4px}
+.keywords{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.kw{background:var(--bg);border:1px solid var(--light);border-radius:2px;padding:2px 7px;font-size:10px;color:var(--mid);font-weight:600}
+.card-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:8px;border-top:1px solid var(--bg)}
+.card-link{font-size:11px;font-weight:600;color:var(--terra);text-decoration:none}
+.card-link:hover{text-decoration:underline}
+.card-fonte{font-size:10px;color:var(--mid);margin-left:auto}
+
+/* PRODUCTS */
+.products-section{margin-top:12px}
+.products-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.products-list{display:flex;flex-wrap:wrap;gap:5px}
+.product-tag{background:var(--bg);border:1px solid var(--light);border-radius:2px;padding:3px 8px;font-size:10px;color:var(--coal);font-weight:600}
+.product-tag a{color:var(--terra);text-decoration:none;font-size:10px;margin-left:4px}
+.product-tag a:hover{text-decoration:underline}
+
+/* REF */
+.ref-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border-radius:2px;margin-bottom:7px;background:var(--bg);color:var(--mid);border:1px solid var(--light)}
+.ref-meta{display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin-bottom:7px}
+.ref-meta span{font-size:11px;color:var(--mid)}
+.ref-meta span::before{content:'· ';opacity:.4}
+.ref-meta span:first-child::before{display:none}
+
+/* MOODBOARD */
+.moodboard-controls{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+.moodboard-query{flex:1;min-width:200px;border:1.5px solid var(--light);border-radius:4px;padding:9px 14px;font-family:inherit;font-size:13px;outline:none;color:var(--coal);background:var(--surface)}
+.moodboard-query:focus{border-color:var(--terra)}
+.btn-moodboard{background:var(--terra);color:#fff;border:none;border-radius:3px;padding:9px 20px;font-family:inherit;font-size:11px;font-weight:700;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.btn-moodboard-clear{background:none;border:1px solid var(--light);border-radius:3px;padding:9px 16px;font-family:inherit;font-size:11px;font-weight:600;color:var(--mid);cursor:pointer;white-space:nowrap;transition:all .18s}
+.btn-moodboard-clear:hover{border-color:#DC2626;color:#DC2626}
+/* PIN BUTTON */
+.btn-pin{position:absolute;top:7px;left:7px;background:rgba(0,0,0,.35);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;backdrop-filter:blur(4px);transition:background .2s;z-index:2;color:#fff;font-weight:700}
+.btn-pin:hover{background:rgba(196,131,106,.9)}
+.btn-pin.pinned{background:rgba(196,131,106,.85)}
+/* MOODBOARD PIN GRID */
+.mb-pin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.mb-pin-card{background:var(--surface);border:1px solid var(--light);border-radius:4px;overflow:hidden;transition:box-shadow .2s}
+.mb-pin-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.mb-pin-img{position:relative;height:160px;overflow:hidden;cursor:zoom-in;background:#eee}
+.mb-pin-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.mb-pin-img:hover img{transform:scale(1.06)}
+.mb-pin-remove{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.5);border:none;color:#fff;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.mb-pin-card:hover .mb-pin-remove{opacity:1}
+.mb-pin-body{padding:10px 12px}
+.mb-pin-title{font-size:13px;font-weight:600;color:var(--coal);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mb-pin-cat{font-size:10px;color:var(--mid);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.mb-pin-dots{display:flex;gap:4px}
+.mb-pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+
+/* MOODBOARD SECTION (cada tema adicionado) */
+.mb-sections{display:flex;flex-direction:column;gap:32px}
+.mb-section{background:var(--surface);border:1px solid var(--light);border-radius:4px;overflow:hidden;animation:fadeUp .4s ease both}
+.mb-section-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--light);background:var(--bg)}
+.mb-section-title{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--coal)}
+.mb-section-meta{font-size:10px;color:var(--mid);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.btn-mb-remove{background:none;border:none;cursor:pointer;color:var(--mid);font-size:14px;padding:2px 6px;border-radius:2px;transition:color .18s}
+.btn-mb-remove:hover{color:#DC2626}
+.mb-section-body{padding:16px 18px}
+
+/* GRID MASONRY-STYLE */
+.moodboard-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:8px;margin-bottom:16px}
+.moodboard-grid .mb-img-0{grid-column:span 2;grid-row:span 2}
+.moodboard-grid .mb-img-3{grid-column:span 2}
+.moodboard-grid .mb-img-6{grid-row:span 2}
+.moodboard-img{border-radius:2px;overflow:hidden;background:#eee;position:relative;height:100%;cursor:zoom-in}
+.moodboard-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.moodboard-img:hover img{transform:scale(1.07)}
+.moodboard-img-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);color:#fff;font-size:10px;font-weight:600;padding:22px 8px 7px;opacity:0;transition:opacity .2s}
+.moodboard-img:hover .moodboard-img-label{opacity:1}
+.moodboard-palette{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;align-items:center}
+.mb-palette-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-right:4px}
+.moodboard-swatch{width:36px;height:36px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.15);cursor:pointer;position:relative;transition:transform .2s}
+.moodboard-swatch:hover{transform:scale(1.15)}
+.moodboard-swatch-tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--coal);color:#fff;font-size:10px;font-weight:600;padding:3px 7px;border-radius:2px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+.moodboard-swatch:hover .moodboard-swatch-tip{opacity:1}
+
+/* LIGHTBOX */
+#mbLightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9998;display:none;align-items:center;justify-content:center;cursor:zoom-out}
+#mbLightbox.show{display:flex}
+#mbLightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:3px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+#mbLightboxClose{position:fixed;top:20px;right:24px;background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* CARD VISUAL GALLERY (multi-imagem nas tendências/refs) */
+.card-gallery{display:grid;grid-template-columns:1fr 1fr;gap:3px;height:200px;overflow:hidden;flex-shrink:0}
+.card-gallery.single{grid-template-columns:1fr;height:190px}
+.card-gallery.three .cg-img:first-child{grid-row:span 2}
+.cg-img{overflow:hidden;background:#eee;position:relative}
+.cg-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.cg-img:hover img{transform:scale(1.07)}
+.card-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45) 0%,transparent 55%);pointer-events:none}
+.cg-img .card-img-src{position:absolute;bottom:6px;right:7px;font-size:9px;color:rgba(255,255,255,.85);font-weight:600;background:rgba(0,0,0,.35);padding:2px 6px;border-radius:2px;backdrop-filter:blur(4px)}
+.cg-img .btn-fav{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.35);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;backdrop-filter:blur(4px);transition:background .2s;z-index:2}
+.cg-img .btn-fav:hover{background:rgba(0,0,0,.6)}
+.cg-img .btn-fav.faved{background:rgba(196,131,106,.85)}
+.card-bar{height:3px;flex-shrink:0}
+
+/* COMPARADOR */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.compare-col{}
+.compare-col-header{background:var(--coal);color:#fff;padding:14px 18px;border-radius:2px 2px 0 0;display:flex;align-items:center;gap:10px}
+.compare-col-title{font-family:'Playfair Display',serif;font-size:15px;font-style:italic}
+.compare-col-body{border:1px solid var(--light);border-top:none;border-radius:0 0 2px 2px;padding:16px}
+.compare-select{width:100%;border:1.5px solid var(--light);border-radius:3px;padding:8px 12px;font-family:inherit;font-size:13px;background:var(--surface);color:var(--coal);outline:none;margin-bottom:12px}
+.compare-select:focus{border-color:var(--terra)}
+.compare-img{width:100%;height:160px;object-fit:cover;border-radius:2px;margin-bottom:12px;background:#eee;display:block}
+.compare-summary{font-size:12px;color:var(--mid);font-weight:300;line-height:1.7;margin-bottom:12px}
+.compare-palette{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.compare-dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.12);cursor:pointer}
+.compare-kws{display:flex;flex-wrap:wrap;gap:4px}
+.compare-kw{background:var(--bg);border:1px solid var(--light);border-radius:2px;padding:2px 7px;font-size:10px;color:var(--mid);font-weight:600}
+.compare-loading{text-align:center;padding:40px;color:var(--mid);font-size:13px}
+.compare-vs{display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:28px;font-style:italic;color:var(--light);padding:20px 0}
+
+/* HISTÓRICO */
+.history-panel{background:var(--surface);border:1px solid var(--light);border-radius:4px;padding:20px;margin-bottom:28px}
+.history-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:12px}
+.history-list{display:flex;flex-wrap:wrap;gap:7px}
+.history-item{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--light);border-radius:100px;padding:4px 12px;font-size:12px;color:var(--mid);cursor:pointer;transition:all .18s}
+.history-item:hover{border-color:var(--terra);color:var(--terra)}
+.history-item span{font-size:10px;opacity:.5}
+
+/* FAVORITOS */
+.favs-panel{background:var(--surface);border:1px solid var(--light);border-radius:4px;padding:20px;margin-bottom:28px}
+.favs-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.btn-clear-favs{background:none;border:1px solid var(--light);border-radius:3px;padding:3px 10px;font-size:10px;color:var(--mid);cursor:pointer;font-family:inherit}
+.btn-clear-favs:hover{border-color:#DC2626;color:#DC2626}
+
+/* MODO APRESENTAÇÃO */
+#apresentacao{position:fixed;inset:0;background:#000;z-index:9999;display:none;flex-direction:column}
+#apresentacao.show{display:flex}
+.ap-img{flex:1;overflow:hidden;position:relative}
+.ap-img img{width:100%;height:100%;object-fit:cover;opacity:.7}
+.ap-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:60px}
+.ap-cat{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin-bottom:12px}
+.ap-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,60px);color:#fff;font-weight:400;line-height:1.15;margin-bottom:16px}
+.ap-desc{font-size:16px;color:rgba(255,255,255,.75);font-weight:300;max-width:600px;line-height:1.7;margin-bottom:24px}
+.ap-swatches{display:flex;gap:10px}
+.ap-swatch{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.3)}
+.ap-nav{position:absolute;bottom:32px;right:60px;display:flex;gap:12px;align-items:center}
+.ap-counter{color:rgba(255,255,255,.5);font-size:13px}
+.ap-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:3px;padding:9px 18px;font-family:inherit;font-size:12px;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s}
+.ap-btn:hover{background:rgba(255,255,255,.2)}
+.ap-close{position:absolute;top:24px;right:24px;background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center}
+
+/* SOURCES FOOTER */
+.sources-footer{margin-top:8px}
+.sources-footer-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.sources-footer-list{display:flex;flex-wrap:wrap;gap:7px}
+.source-pill{background:var(--surface);border:1px solid var(--light);border-radius:2px;padding:3px 10px;font-size:11px;color:var(--mid)}
+
+/* TOAST */
+#toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--coal);color:#fff;padding:10px 20px;border-radius:4px;font-size:12px;font-weight:500;opacity:0;transition:all .3s;z-index:10000;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:640px){
+  header{padding:0 16px}
+  .hero{padding:32px 16px 24px}
+  main{padding:24px 16px 60px}
+  .cards-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .main-tab{padding:8px 14px;font-size:10px}
+  .api-wrap input{width:190px}
+  .ap-content{padding:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX MOODBOARD -->
+<div id="mbLightbox" onclick="closeLightbox()">
+  <button id="mbLightboxClose" onclick="closeLightbox()">✕</button>
+  <img id="mbLightboxImg" src="" alt="">
+</div>
+
+<!-- MODO APRESENTAÇÃO -->
+<div id="apresentacao">
+  <div class="ap-img">
+    <img id="apImg" src="" alt="">
+    <div class="ap-content">
+      <div class="ap-cat" id="apCat"></div>
+      <div class="ap-title" id="apTitle"></div>
+      <div class="ap-desc" id="apDesc"></div>
+      <div class="ap-swatches" id="apSwatches"></div>
+    </div>
+  </div>
+  <div class="ap-nav">
+    <span class="ap-counter" id="apCounter"></span>
+    <button class="ap-btn" onclick="apNav(-1)">← Anterior</button>
+    <button class="ap-btn" onclick="apNav(1)">Próximo →</button>
+  </div>
+  <button class="ap-close" onclick="closeAp()">✕</button>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+<header>
+  <div class="logo">tend<span>ências</span></div>
+  <div class="header-right">
+    <button class="btn-history" onclick="toggleHistoryPanel()">🕐 Histórico</button>
+    <button class="btn-history" onclick="toggleFavsPanel()">♡ Favoritos <span class="fav-count" id="favCount">0</span></button>
+    <div class="header-tag">Arq & Design</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="eyebrow">Atualizado em tempo real</div>
+  <h1>O que está em alta no<br><em>design de interiores</em></h1>
+  <p>Tendências, referências, moodboards e comparativos de revestimentos, cores e materiais.</p>
+
+  <div style="margin-bottom:18px">
+    <div class="main-tabs">
+      <button class="main-tab active" onclick="setMainTab('tendencias')">Tendências</button>
+      <button class="main-tab" onclick="setMainTab('referencias')">Referências</button>
+      <button class="main-tab" onclick="setMainTab('moodboard')">Moodboard</button>
+      <button class="main-tab" onclick="setMainTab('comparar')">Comparar</button>
+    </div>
+  </div>
+
+  <div class="chip-groups" id="chipGroups">
+    <div class="chip-group">
+      <div class="chip-group-label">Superfícies</div>
+      <div class="chips">
+        <span class="chip active" data-qt="revestimentos cerâmicos tendências arquitetura interiores 2025" data-qr="projetos referências revestimentos cerâmicos arquitetura interiores" data-label="Revestimentos">Revestimentos</span>
+        <span class="chip" data-qt="pisos vinílicos laminados porcelanato tendências 2025" data-qr="projetos referências pisos porcelanato laminado arquitetura" data-label="Pisos & Forros">Pisos & Forros</span>
+        <span class="chip" data-qt="texturas acabamentos paredes arquitetura interiores 2025" data-qr="projetos referências texturas superfícies paredes acabamentos" data-label="Texturas">Texturas</span>
+        <span class="chip" data-qt="mármore travertino quartzito pedras naturais revestimento 2025" data-qr="projetos referências pedras naturais mármore travertino arquitetura" data-label="Pedras Naturais">Pedras Naturais</span>
+      </div>
+    </div>
+    <div class="chip-group">
+      <div class="chip-group-label">Cor & Acabamento</div>
+      <div class="chips">
+        <span class="chip" data-qt="paleta de cores interiores tendências design 2025" data-qr="projetos referências paleta cores design interiores contemporânea" data-label="Paleta de Cores">Paleta de Cores</span>
+        <span class="chip" data-qt="cores acabamentos marcenaria móveis planejados tendências 2025" data-qr="projetos referências marcenaria móveis planejados cores acabamentos" data-label="Cores de Marcenaria">Cores de Marcenaria</span>
+        <span class="chip" data-qt="acabamentos marcenaria perfis alumínio lacado natural tendências 2025" data-qr="projetos referências acabamentos marcenaria perfis alumínio design" data-label="Acabamentos Marcenaria">Acabamentos Marcenaria</span>
+        <span class="chip" data-qt="tintas texturas paredes efeitos especiais cimento queimado tendências 2025" data-qr="projetos referências tintas paredes efeitos decorativos arquitetura" data-label="Tintas & Efeitos">Tintas & Efeitos</span>
+      </div>
+    </div>
+    <div class="chip-group">
+      <div class="chip-group-label">Materiais & Metais</div>
+      <div class="chips">
+        <span class="chip" data-qt="materiais naturais madeira pedra cimento arquitetura tendências 2025" data-qr="projetos referências materiais naturais madeira pedra cimento" data-label="Materiais Naturais">Materiais Naturais</span>
+        <span class="chip" data-qt="metais ferragens dourado preto fosco inox cobre tendências interiores 2025" data-qr="projetos referências metais ferragens dourado preto cobre design interiores" data-label="Metais & Ferragens">Metais & Ferragens</span>
+        <span class="chip" data-qt="concreto cimento queimado aparente tendências arquitetura 2025" data-qr="projetos referências concreto cimento queimado aparente arquitetura" data-label="Concreto & Cimento">Concreto & Cimento</span>
+      </div>
+    </div>
+    <div class="chip-group">
+      <div class="chip-group-label">Ambientes</div>
+      <div class="chips">
+        <span class="chip" data-qt="móveis mobiliário design interiores tendências 2025" data-qr="projetos referências mobiliário design interiores contemporâneo" data-label="Mobiliário">Mobiliário</span>
+        <span class="chip" data-qt="iluminação design interiores arandelas pendentes embutidos tendências 2025" data-qr="projetos referências iluminação arquitetura interiores premiados" data-label="Iluminação">Iluminação</span>
+        <span class="chip" data-qt="design biofílico verde natureza plantas arquitetura interiores 2025" data-qr="projetos referências biofilia natureza verde plantas arquitetura" data-label="Biofilia">Biofilia</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sources-panel">
+    <div class="src-header" onclick="toggleSources()">
+      <span class="src-title">🔍 Fontes de pesquisa</span>
+      <span class="src-arrow" id="srcArrow">▼</span>
+    </div>
+    <div class="src-grid" id="srcGrid"></div>
+    <div class="domain-note" id="domainNote">⚠️ Perplexity usa até 3 domínios como filtro direto. Os 3 primeiros são filtro real; os demais viram instrução textual.</div>
+    <div class="custom-list" id="customList"></div>
+    <div class="custom-add">
+      <input type="text" id="customInput" placeholder="Adicionar site: ex. revistacasabela.com.br" onkeydown="if(event.key==='Enter')addCustomSource()">
+      <button class="btn-add" onclick="addCustomSource()">+ Adicionar</button>
+    </div>
+    <div class="src-hint" id="srcHint"></div>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Ex: granilite, japandi, cobre escovado…" onkeydown="if(event.key==='Enter')doSearch()">
+      <button class="btn-search" id="btnSearch" onclick="doSearch()">Pesquisar</button>
+    </div>
+    <div class="date-filter">
+      <label>Período:</label>
+      <select id="dateFrom" class="date-select" onchange="updateDateFilter()">
+        <option value="">Qualquer ano</option>
+        <option value="2025">A partir de 2025</option>
+        <option value="2024">A partir de 2024</option>
+        <option value="2023">A partir de 2023</option>
+        <option value="2022">A partir de 2022</option>
+        <option value="2020">A partir de 2020</option>
+      </select>
+      <select id="dateTo" class="date-select" onchange="updateDateFilter()">
+        <option value="">até hoje</option>
+        <option value="2025">até 2025</option>
+        <option value="2024">até 2024</option>
+        <option value="2023">até 2023</option>
+        <option value="2022">até 2022</option>
+      </select>
+      <span id="dateHint" style="font-size:11px;color:var(--terra);display:none">● Filtro de data ativo</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- HISTÓRICO PANEL -->
+  <div id="historyPanel" style="display:none" class="history-panel">
+    <div class="history-title">Pesquisas recentes</div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+  <!-- FAVORITOS PANEL -->
+  <div id="favsPanel" style="display:none" class="favs-panel">
+    <div class="favs-title">
+      <span>Favoritos salvos</span>
+      <button class="btn-clear-favs" onclick="clearFavs()">Limpar tudo</button>
+    </div>
+    <div id="favsList" class="cards-grid"></div>
+  </div>
+  <div id="output">
+    <div class="state-empty"><div class="icon">◈</div><p>Salve sua chave, selecione uma categoria ou pesquise acima.</p></div>
+  </div>
+</main>
+
+<script>
+// ── API: via servidor Netlify (chaves seguras no backend) ────
+
+// ── TOAST ─────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
+
+// ── HISTÓRICO ─────────────────────────────────────────────────
+let searchHistory = JSON.parse(localStorage.getItem('tb_history')||'[]');
+function addToHistory(query,label,mode){
+  searchHistory=searchHistory.filter(h=>h.query!==query||h.mode!==mode);
+  searchHistory.unshift({query,label,mode,time:Date.now()});
+  if(searchHistory.length>20)searchHistory.pop();
+  localStorage.setItem('tb_history',JSON.stringify(searchHistory));
+  renderHistoryList();
+}
+function renderHistoryList(){
+  const el=document.getElementById('historyList');
+  if(!searchHistory.length){el.innerHTML='<span style="font-size:12px;color:var(--mid)">Nenhuma pesquisa ainda.</span>';return}
+  el.innerHTML=searchHistory.map((h,i)=>`
+    <div class="history-item" onclick="loadHistory(${i})">
+      <span style="font-size:12px">🕐</span> ${h.label}
+      <span>[${h.mode}]</span>
+    </div>`).join('');
+}
+function loadHistory(i){
+  const h=searchHistory[i];
+  setMainTab(h.mode);
+  runSearch(h.query,h.label,true);
+  toggleHistoryPanel();
+}
+function toggleHistoryPanel(){
+  const p=document.getElementById('historyPanel');
+  p.style.display=p.style.display==='none'?'block':'none';
+  if(p.style.display==='block')renderHistoryList();
+}
+
+// ── FAVORITOS ─────────────────────────────────────────────────
+let favs = JSON.parse(localStorage.getItem('tb_favs')||'[]');
+function updateFavCount(){document.getElementById('favCount').textContent=favs.length}
+function isFaved(id){return favs.some(f=>f.id===id)}
+function toggleFav(card){
+  const id=card.id;
+  if(isFaved(id)){favs=favs.filter(f=>f.id!==id);toast('Removido dos favoritos')}
+  else{favs.push(card);toast('Adicionado aos favoritos ♡')}
+  localStorage.setItem('tb_favs',JSON.stringify(favs));
+  updateFavCount();
+  document.querySelectorAll(`.btn-fav[data-id="${id}"]`).forEach(b=>{b.classList.toggle('faved',isFaved(id));b.textContent=isFaved(id)?'♥':'♡'});
+}
+function clearFavs(){favs=[];localStorage.setItem('tb_favs','[]');updateFavCount();renderFavsList();toast('Favoritos limpos')}
+function renderFavsList(){
+  const el=document.getElementById('favsList');
+  if(!favs.length){el.innerHTML='<p style="font-size:13px;color:var(--mid);padding:20px 0">Nenhum favorito salvo ainda. Clique em ♡ nos cards.</p>';return}
+  el.innerHTML=favs.map(f=>buildCard(f,true)).join('');
+}
+function toggleFavsPanel(){
+  const p=document.getElementById('favsPanel');
+  p.style.display=p.style.display==='none'?'block':'none';
+  if(p.style.display==='block')renderFavsList();
+}
+updateFavCount();
+
+// ── SOURCES ───────────────────────────────────────────────────
+const ALL_SOURCES=[
+  {id:'archdaily',name:'ArchDaily',icon:'🏛️',domain:'archdaily.com.br'},
+  {id:'dezeen',name:'Dezeen',icon:'✦',domain:'dezeen.com'},
+  {id:'casavogue',name:'Casa Vogue',icon:'◆',domain:'casavogue.globo.com'},
+  {id:'houzz',name:'Houzz',icon:'🏠',domain:'houzz.com'},
+  {id:'behance',name:'Behance',icon:'🎨',domain:'behance.net'},
+  {id:'abitare',name:'Abitare',icon:'🇮🇹',domain:'abitare.it'},
+  {id:'wallpaper',name:'Wallpaper*',icon:'◉',domain:'wallpaper.com'},
+  {id:'archilovers',name:'Archilovers',icon:'❤️',domain:'archilovers.com'},
+  {id:'arcoweb',name:'Arcoweb',icon:'🇧🇷',domain:'arcoweb.com.br'},
+  {id:'domus',name:'Domus',icon:'📐',domain:'domusweb.it'},
+  {id:'ad',name:'AD Magazine',icon:'🌿',domain:'archdigest.com'},
+  {id:'pinterest',name:'Pinterest',icon:'📌',domain:'pinterest.com'},
+];
+let selSrc=new Set(['archdaily','dezeen','casavogue']),customSrc=[],srcOpen=false;
+function buildSrcGrid(){
+  document.getElementById('srcGrid').innerHTML=ALL_SOURCES.map(s=>`
+    <div class="src-toggle ${selSrc.has(s.id)?'sel':''}" onclick="toggleSrc('${s.id}')" id="src-${s.id}">
+      <span style="font-size:13px">${s.icon}</span><span class="src-name">${s.name}</span><span class="src-check"></span>
+    </div>`).join('');
+  updateHint();
+}
+function toggleSrc(id){
+  if(selSrc.has(id)){if(selSrc.size<=1)return;selSrc.delete(id)}else selSrc.add(id);
+  document.getElementById(`src-${id}`).classList.toggle('sel');
+  updateDomainNote();updateHint();
+}
+function updateDomainNote(){document.getElementById('domainNote').style.display=(selSrc.size+customSrc.length)>3?'block':'none'}
+function addCustomSource(){
+  const inp=document.getElementById('customInput');
+  let v=inp.value.trim().toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0];
+  if(!v||!v.includes('.'))return;
+  if(customSrc.find(s=>s.domain===v)){inp.value='';return}
+  const n=v.split('.')[0];customSrc.push({domain:v,name:n.charAt(0).toUpperCase()+n.slice(1)});
+  inp.value='';renderCustom();updateDomainNote();updateHint();
+}
+function removeCustom(d){customSrc=customSrc.filter(s=>s.domain!==d);renderCustom();updateDomainNote();updateHint()}
+function renderCustom(){
+  document.getElementById('customList').innerHTML=customSrc.map(s=>`
+    <div class="custom-tag">🌐 ${s.name} <span style="font-weight:300;opacity:.6">(${s.domain})</span>
+      <button onclick="removeCustom('${s.domain}')">✕</button></div>`).join('');
+}
+function updateHint(){
+  const all=[...[...selSrc].map(id=>ALL_SOURCES.find(s=>s.id===id)?.name),...customSrc.map(s=>s.name)].filter(Boolean);
+  document.getElementById('srcHint').textContent=all.length?`Pesquisando em: ${all.join(', ')}`:''
+}
+function toggleSources(){srcOpen=!srcOpen;document.getElementById('srcGrid').classList.toggle('open',srcOpen);document.getElementById('srcArrow').classList.toggle('open',srcOpen)}
+function getAllDomains(){return[[...selSrc].map(id=>ALL_SOURCES.find(s=>s.id===id)?.domain).filter(Boolean),...customSrc.map(s=>s.domain)].flat()}
+function getTop3(){return getAllDomains().slice(0,3)}
+function getSrcInstruction(){
+  const all=getAllDomains(),top=all.slice(0,3),rest=all.slice(3);
+  return(top.length?`Priorize os sites: ${top.join(', ')}.`:'')+( rest.length?` Considere também: ${rest.join(', ')}.`:'');
+}
+
+// ── MAIN TAB ──────────────────────────────────────────────────
+let currentMode='tendencias';
+function setMainTab(mode){
+  currentMode=mode;
+  document.querySelectorAll('.main-tab').forEach((t,i)=>t.classList.toggle('active',['tendencias','referencias','moodboard','comparar'][i]===mode));
+  const placeholders={tendencias:'Ex: granilite, japandi, cobre escovado…',referencias:'Ex: casa minimalista, loft industrial…',moodboard:'Ex: sala de estar minimalista, cozinha japandi…',comparar:'Selecione duas categorias abaixo para comparar'};
+  document.getElementById('searchInput').placeholder=placeholders[mode]||'Pesquisar…';
+  document.getElementById('chipGroups').style.display=mode==='moodboard'||mode==='comparar'?'none':'block';
+  if(mode==='comparar'){showComparador();return}
+  if(mode==='moodboard'){showMoodboardUI();return}
+  const a=document.querySelector('.chip.active');
+  if(a)runSearch(mode==='tendencias'?a.dataset.qt:a.dataset.qr,a.dataset.label,true);
+}
+
+// ── UNSPLASH ──────────────────────────────────────────────────
+const UNSPLASH_KEY='DLDYpZJLtIaaZWX-RaeT7KFVpm58ZIlk-Waxv8FDzgE';
+function imgHash(q){let h=5381;for(let i=0;i<(q||'').length;i++){h=((h<<5)+h)+q.charCodeAt(i);h|=0}return Math.abs(h)}
+// Cache para não repetir buscas iguais
+const imgCache={};
+function imgUrl(q){
+  const key=(q||'interior design').trim();
+  if(imgCache[key])return imgCache[key];
+  // Retorna URL de busca Unsplash — a imagem carrega diretamente
+  const query=encodeURIComponent(key+' interior architecture');
+  const page=(imgHash(key)%5)+1;
+  return`https://api.unsplash.com/photos/random?query=${query}&orientation=landscape&client_id=${UNSPLASH_KEY}&sig=${imgHash(key)}`;
+}
+function imgUrlLg(q){
+  const query=encodeURIComponent((q||'interior design').trim()+' interior architecture');
+  return`https://api.unsplash.com/photos/random?query=${query}&orientation=landscape&client_id=${UNSPLASH_KEY}&sig=${imgHash(q)+1}`;
+}
+// Unsplash retorna JSON, precisamos extrair a URL da imagem
+async function loadUnsplashImg(el, q){
+  try{
+    const res=await fetch(imgUrl(q));
+    const data=await res.json();
+    if(data.urls?.regular){
+      el.src=data.urls.regular;
+      imgCache[q]=data.urls.regular;
+    }
+  }catch{el.src='';el.parentElement.style.background='var(--light)'}
+}
+// Patch para imgs com data-q attribute
+function applyUnsplashImages(){
+  document.querySelectorAll('img[data-q]').forEach(img=>{
+    if(!img.dataset.loaded){
+      img.dataset.loaded='1';
+      loadUnsplashImg(img, img.dataset.q);
+    }
+  });
+}
+
+// ── PROMPTS ───────────────────────────────────────────────────
+function promptT(){return`Você é especialista em tendências de arquitetura e design de interiores.
+${getSrcInstruction()}
+Retorne SOMENTE JSON válido, sem markdown.
+{"resumo":"2-3 frases.","linha_tempo":[{"ano":"Ano","evento":"O que aconteceu (1 frase)"}],"tendencias":[{"titulo":"Nome","categoria":"Cat","descricao":"2-3 frases.","imagem_query":"3-5 palavras inglês para imagem","palavras_chave":["p1","p2","p3"],"cores":[{"nome":"Nome","hex":"#HEX"}],"cor_destaque":"#HEX","produtos":[{"nome":"Produto ou marca","url":"URL se disponível"}],"url":"URL real relacionada","fonte":"Site de origem"}],"fontes":["F1","F2"]}
+4-6 tendências. Linha do tempo com 3-5 marcos. 2-3 produtos/fornecedores por tendência. Cores hex reais. Português brasileiro.`}
+
+function promptR(){return`Você é especialista em arquitetura e design de interiores.
+${getSrcInstruction()}
+Retorne SOMENTE JSON válido, sem markdown.
+{"resumo":"2 frases.","referencias":[{"titulo":"Nome do projeto","tipo":"Projeto Residencial|Projeto Comercial|Estudo de Caso|Editorial|Outro","escritorio_ou_autor":"Nome","ano":"Ano","localizacao":"Cidade, País","descricao":"2-3 frases.","imagem_query":"3-5 palavras inglês","destaques":["d1","d2","d3"],"url":"URL real se disponível","fonte":"Site","tags":["t1","t2","t3"],"cor_destaque":"#HEX"}],"fontes":["F1","F2"]}
+4-6 referências reais. Português brasileiro.`}
+
+// ── LOADING ───────────────────────────────────────────────────
+const STEPS=['Conectando à web…','Lendo publicações especializadas…','Identificando tendências…','Montando resultados…'];
+let stepInt,stepIdx=0;
+function showLoading(){
+  stepIdx=0;
+  document.getElementById('output').innerHTML=`<div class="state-loading"><div class="loader"></div><div id="stepText" class="loading-step">${STEPS[0]}</div></div>`;
+  stepInt=setInterval(()=>{stepIdx=(stepIdx+1)%STEPS.length;const e=document.getElementById('stepText');if(e)e.textContent=STEPS[stepIdx]},900);
+}
+
+// ── CHIPS ─────────────────────────────────────────────────────
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    document.getElementById('searchInput').value='';
+    runSearch(currentMode==='tendencias'?chip.dataset.qt:chip.dataset.qr,chip.dataset.label,true);
+  });
+});
+function updateDateFilter(){
+  const from=document.getElementById('dateFrom').value;
+  const to=document.getElementById('dateTo').value;
+  const hint=document.getElementById('dateHint');
+  const active=from||to;
+  hint.style.display=active?'inline':'none';
+  document.getElementById('dateFrom').classList.toggle('date-active',!!from);
+  document.getElementById('dateTo').classList.toggle('date-active',!!to);
+}
+
+function getDateInstruction(){
+  const from=document.getElementById('dateFrom')?.value;
+  const to=document.getElementById('dateTo')?.value;
+  if(!from&&!to)return'';
+  if(from&&to)return` Foque em conteúdo e tendências do período entre ${from} e ${to}.`;
+  if(from)return` Foque em conteúdo e tendências a partir de ${from}.`;
+  if(to)return` Foque em conteúdo e tendências até ${to}.`;
+  return'';
+}
+
+function doSearch(){
+  const q=document.getElementById('searchInput').value.trim();if(!q)return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  runSearch(q,q,false);
+}
+
+// ── CURRENT DATA ──────────────────────────────────────────────
+let currentData=null,currentLabel='';
+
+// ── MAIN SEARCH ───────────────────────────────────────────────
+async function runSearch(query,label,fromChip){
+  document.getElementById('btnSearch').disabled=true;
+  showLoading();
+  addToHistory(query,label,currentMode);
+  currentLabel=label;
+  try{
+    const res=await fetch('/api/search',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'search',query:query+getDateInstruction(),prompt:currentMode==='tendencias'?promptT():promptR(),domains:getAllDomains()})});
+    const json=await res.json();
+    if(!res.ok||!json.ok)throw new Error(json.error||`Erro ${res.status}`);
+    const parsed=json.data;
+    currentData=parsed;
+    parsed._currentLabel=label;if(currentMode==='tendencias')renderTendencias(parsed,label);
+    else renderReferencias(parsed,label);
+  }catch(err){
+    document.getElementById('output').innerHTML=`<div class="state-error"><strong>Erro ao buscar</strong><br>${err.message}</div>`;
+  }finally{clearInterval(stepInt);document.getElementById('btnSearch').disabled=false}
+}
+
+// ── CARD BUILDER ──────────────────────────────────────────────
+let apSlides=[];
+function buildCard(item,isFav=false){
+  if(!item.id)item.id=Math.random().toString(36).slice(2);
+  const cor=item.cor_destaque||'#C4836A';
+  const faved=isFaved(item.id);
+  // Build 3 image gallery (main + 2 variants)
+  const q=item.imagem_query||'interior design';
+  const q2=q+' detail';
+  const q3=q+' texture';
+  const img=`<div class="card-gallery three">
+    <div class="cg-img">
+      <img src="" data-q="${q}"  alt="" loading="lazy" onerror="this.parentElement.style.display='none'">
+      <div class="card-img-overlay"></div>
+      ${item.fonte?`<span class="card-img-src">${item.fonte}</span>`:''}
+      <button class="btn-fav ${faved?'faved':''}" data-id="${item.id}" onclick='toggleFav(${JSON.stringify(item).replace(/'/g,"&#39;")})'>${faved?'♥':'♡'}</button>
+      <button class="btn-pin ${isMbPinned(item.id)?'pinned':''}" data-mbid="${item.id}" onclick='toggleMbPin(${JSON.stringify(item).replace(/'/g,"&#39;")})' title="Adicionar ao Moodboard">${isMbPinned(item.id)?'📌':'＋'}</button>
+    </div>
+    <div class="cg-img"><img src="" data-q="${q2}"  alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+    <div class="cg-img"><img src="" data-q="${q3}"  alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+  </div>`;
+  const swatches=item.cores?.length?`<div class="swatches">${item.cores.map(c=>`
+    <div class="swatch" onclick="copySwatch('${c.hex}',this)" title="Clique para copiar ${c.hex}">
+      <div class="swatch-dot" style="background:${c.hex}"></div>${c.nome}
+      <span class="swatch-copied">✓ copiado</span>
+    </div>`).join('')}</div>`:'';
+  const kws=item.palavras_chave?.length?`<div class="keywords">${item.palavras_chave.map(k=>`<span class="kw">${k}</span>`).join('')}</div>`:'';
+  const products=item.produtos?.length?`<div class="products-section"><div class="products-label">Produtos & Fornecedores</div><div class="products-list">${item.produtos.map(p=>`<span class="product-tag">${p.nome}${p.url?`<a href="${p.url}" target="_blank" rel="noopener">↗</a>`:''}</span>`).join('')}</div></div>`:'';
+  const link=item.url?`<a class="card-link" href="${item.url}" target="_blank" rel="noopener">Ver na web →</a>`:'';
+  const fonte=item.fonte?`<span class="card-fonte">via ${item.fonte}</span>`:'';
+  // ref fields
+  const badge=item.tipo?`<span class="ref-badge">${item.tipo}</span>`:'';
+  const meta=item.escritorio_ou_autor||item.ano||item.localizacao?`<div class="ref-meta">${[item.escritorio_ou_autor,item.ano,item.localizacao].filter(Boolean).map(m=>`<span>${m}</span>`).join('')}</div>`:'';
+  const tags=item.tags?.length?`<div class="keywords" style="margin-top:8px">${item.tags.map(t=>`<span class="kw">${t}</span>`).join('')}</div>`:'';
+  const destaques=item.destaques?.length?`<div class="keywords" style="margin-bottom:8px">${item.destaques.map(d=>`<span class="kw">${d}</span>`).join('')}</div>`:'';
+  return`<div class="trend-card">
+    ${img}
+    <div class="card-bar" style="background:${cor}"></div>
+    <div class="card-body">
+      ${badge}
+      ${item.categoria?`<div class="card-cat" style="color:${cor}">${item.categoria}</div>`:''}
+      <div class="card-title">${item.titulo||item.titulo}</div>
+      ${meta}
+      <div class="card-desc">${item.descricao}</div>
+      ${swatches}${kws}${destaques}${products}${tags}
+      <div class="card-footer">${link}${fonte}</div>
+    </div></div>`;
+}
+
+// ── COPY SWATCH ───────────────────────────────────────────────
+function copySwatch(hex,el){
+  navigator.clipboard.writeText(hex).then(()=>{
+    const copied=el.querySelector('.swatch-copied');
+    if(copied){copied.style.opacity='1';setTimeout(()=>copied.style.opacity='0',1500)}
+    toast(`Copiado: ${hex}`);
+  });
+}
+
+// ── APRESENTAÇÃO ──────────────────────────────────────────────
+let apIdx=0;
+function startAp(){
+  if(!apSlides.length)return;
+  apIdx=0;showApSlide();
+  document.getElementById('apresentacao').classList.add('show');
+}
+function showApSlide(){
+  const s=apSlides[apIdx];if(!s)return;
+  loadUnsplashImg(document.getElementById('apImg'), s.imagem_query);
+  document.getElementById('apCat').textContent=s.categoria||s.tipo||'';
+  document.getElementById('apTitle').textContent=s.titulo;
+  document.getElementById('apDesc').textContent=s.descricao;
+  document.getElementById('apSwatches').innerHTML=(s.cores||[]).map(c=>`<div class="ap-swatch" style="background:${c.hex}"></div>`).join('');
+  document.getElementById('apCounter').textContent=`${apIdx+1} / ${apSlides.length}`;
+}
+function apNav(d){apIdx=Math.max(0,Math.min(apSlides.length-1,apIdx+d));showApSlide()}
+function closeAp(){document.getElementById('apresentacao').classList.remove('show')}
+document.addEventListener('keydown',e=>{if(!document.getElementById('apresentacao').classList.contains('show'))return;if(e.key==='ArrowRight')apNav(1);if(e.key==='ArrowLeft')apNav(-1);if(e.key==='Escape')closeAp()});
+
+// ── PDF EXPORT ────────────────────────────────────────────────
+function exportPDF(){
+  if(!currentData)return;
+  const items=currentData.tendencias||currentData.referencias||[];
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Tendências - ${currentLabel}</title>
+  <style>
+    body{font-family:'Georgia',serif;max-width:800px;margin:40px auto;color:#1A1A1A;font-size:13px;line-height:1.7}
+    h1{font-size:28px;font-weight:400;margin-bottom:6px;color:#C4836A}
+    .date{font-size:11px;color:#888;margin-bottom:32px}
+    .resumo{background:#1A1A1A;color:rgba(255,255,255,.85);padding:20px 24px;border-radius:2px;margin-bottom:32px;font-size:14px;font-weight:300}
+    .item{margin-bottom:32px;border-bottom:1px solid #eee;padding-bottom:32px}
+    .cat{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C4836A;margin-bottom:6px}
+    .titulo{font-size:20px;margin-bottom:8px}
+    .desc{font-size:13px;color:#555;margin-bottom:12px}
+    .cores{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+    .cor{display:flex;align-items:center;gap:6px;font-size:11px;color:#666}
+    .cor-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+    .kws{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+    .kw{background:#f5f5f5;border:1px solid #ddd;padding:2px 8px;font-size:10px;font-weight:600}
+    .produtos{margin-top:8px}
+    .produtos-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:5px}
+    .produto{font-size:11px;color:#333;display:inline-block;margin-right:8px}
+    .url{font-size:11px;color:#C4836A}
+    .footer{margin-top:40px;font-size:11px;color:#aaa;text-align:center}
+    @media print{body{margin:20px}}
+  </style></head><body>
+  <h1>${currentLabel}</h1>
+  <div class="date">Gerado em ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</div>
+  ${currentData.resumo?`<div class="resumo">${currentData.resumo}</div>`:''}
+  ${items.map(t=>`<div class="item">
+    <div class="cat">${t.categoria||t.tipo||''}</div>
+    <div class="titulo">${t.titulo}</div>
+    ${t.escritorio_ou_autor?`<div style="font-size:11px;color:#888;margin-bottom:6px">${[t.escritorio_ou_autor,t.ano,t.localizacao].filter(Boolean).join(' · ')}</div>`:''}
+    <div class="desc">${t.descricao}</div>
+    ${t.cores?.length?`<div class="cores">${t.cores.map(c=>`<div class="cor"><div class="cor-dot" style="background:${c.hex}"></div>${c.nome} ${c.hex}</div>`).join('')}</div>`:''}
+    ${t.palavras_chave?.length?`<div class="kws">${t.palavras_chave.map(k=>`<span class="kw">${k}</span>`).join('')}</div>`:''}
+    ${t.produtos?.length?`<div class="produtos"><div class="produtos-label">Produtos & Fornecedores</div>${t.produtos.map(p=>`<span class="produto">${p.nome}</span>`).join('')}</div>`:''}
+    ${t.url?`<div><a class="url" href="${t.url}">${t.url}</a></div>`:''}
+  </div>`).join('')}
+  <div class="footer">Gerado por Tendências · Arquitetura & Design</div>
+  </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),500);
+}
+
+// ── RENDER TENDÊNCIAS ─────────────────────────────────────────
+function renderTendencias(data,label){
+  const now=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  apSlides=(data.tendencias||[]).map(t=>({...t,id:t.titulo+Math.random()}));
+  let html=`<div class="results-meta">
+    <div class="results-title">Tendências em <em>${label}</em></div>
+    <div class="results-actions">
+      <span class="results-date">${now}</span>
+      <button class="btn-sm" onclick="startAp()">▶ Apresentar</button>
+      <button class="btn-pdf" onclick="exportPDF()">↓ PDF</button>
+    </div></div>`;
+  if(data.resumo)html+=`<div class="summary-box"><div class="summary-label">Panorama Geral</div><p>${data.resumo}</p></div>`;
+  // LINHA DO TEMPO
+  if(data.linha_tempo?.length)html+=`<div class="timeline">${data.linha_tempo.map(t=>`
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">${t.ano}</div><div class="tl-text">${t.evento}</div></div>`).join('')}</div>`;
+  if(data.tendencias?.length){
+    html+=`<div class="cards-grid" id="cardsGrid">`;
+    data.tendencias.forEach((t,i)=>{
+      t.id=t.titulo+i;
+      html+=`<div style="animation-delay:${i*.07}s">${buildCard(t)}</div>`;
+    });
+    html+=`</div>`;
+  }
+  html+=renderFooter(data.fontes);
+  document.getElementById('output').innerHTML=html;
+  setTimeout(applyUnsplashImages,50);
+}
+
+// ── RENDER REFERÊNCIAS ────────────────────────────────────────
+function renderReferencias(data,label){
+  const now=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  apSlides=(data.referencias||[]).map((r,i)=>({...r,id:r.titulo+i,categoria:r.tipo,palavras_chave:r.tags,cores:[]}));
+  let html=`<div class="results-meta">
+    <div class="results-title">Referências em <em>${label}</em></div>
+    <div class="results-actions">
+      <span class="results-date">${now}</span>
+      <button class="btn-sm" onclick="startAp()">▶ Apresentar</button>
+      <button class="btn-pdf" onclick="exportPDF()">↓ PDF</button>
+    </div></div>`;
+  if(data.resumo)html+=`<div class="summary-box"><div class="summary-label">Sobre estas referências</div><p>${data.resumo}</p></div>`;
+  if(data.referencias?.length){
+    html+=`<div class="cards-grid">`;
+    data.referencias.forEach((r,i)=>{r.id=r.titulo+i;html+=`<div style="animation-delay:${i*.07}s">${buildCard(r)}</div>`;});
+    html+=`</div>`;
+  }
+  html+=renderFooter(data.fontes);
+  document.getElementById('output').innerHTML=html;
+  setTimeout(applyUnsplashImages,50);
+}
+
+// ── MOODBOARD (PIN-BASED) ─────────────────────────────────────
+let mbPins = JSON.parse(localStorage.getItem('tb_moodboard')||'[]');
+
+function updateMbCount(){
+  const badge=document.getElementById('mbCount');
+  if(!badge)return;
+  badge.textContent=mbPins.length;
+  badge.style.display=mbPins.length?'inline':'none';
+}
+
+function isMbPinned(id){return mbPins.some(p=>p.id===id)}
+
+function toggleMbPin(item){
+  if(isMbPinned(item.id)){
+    mbPins=mbPins.filter(p=>p.id!==item.id);
+    toast('Removido do moodboard');
+  } else {
+    mbPins.push(item);
+    toast('📌 Adicionado ao moodboard!');
+  }
+  localStorage.setItem('tb_moodboard',JSON.stringify(mbPins));
+  updateMbCount();
+  document.querySelectorAll(`.btn-pin[data-mbid="${item.id}"]`).forEach(b=>{
+    b.classList.toggle('pinned',isMbPinned(item.id));
+    b.textContent=isMbPinned(item.id)?'📌':'＋';
+  });
+}
+
+function clearMoodboard(){
+  mbPins=[];
+  localStorage.setItem('tb_moodboard','[]');
+  updateMbCount();
+  renderMoodboard();
+}
+
+function removeMbPin(id){
+  mbPins=mbPins.filter(p=>p.id!==id);
+  localStorage.setItem('tb_moodboard',JSON.stringify(mbPins));
+  updateMbCount();
+  renderMoodboard();
+}
+
+function renderMoodboard(){
+  const out=document.getElementById('mbOutput');
+  if(!out)return;
+  if(!mbPins.length){
+    out.innerHTML=`<div class="state-empty"><div class="icon">📌</div><p>Nenhum item pinado ainda.<br><small style="opacity:.6">Pesquise tendências e clique em <strong>＋</strong> nos cards para adicionar aqui.</small></p></div>`;
+    return;
+  }
+  const allCores=[];
+  mbPins.forEach(p=>(p.cores||[]).forEach(c=>{if(!allCores.find(x=>x.hex===c.hex))allCores.push(c)}));
+
+  out.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic">${mbPins.length} ${mbPins.length===1?'item':'itens'} no moodboard</div>
+        <div style="font-size:11px;color:var(--mid);margin-top:2px">Clique nas imagens para ampliar · ✕ para remover</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-moodboard-clear" onclick="exportMoodboard()">⬇ Exportar</button>
+        <button class="btn-moodboard-clear" onclick="clearMoodboard()">Limpar tudo</button>
+      </div>
+    </div>
+    ${allCores.length?`
+    <div style="background:var(--surface);border:1px solid var(--light);border-radius:4px;padding:14px 18px;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:10px">Paleta do moodboard</div>
+      <div class="moodboard-palette">${allCores.map(c=>`
+        <div class="moodboard-swatch" style="background:${c.hex}" onclick="copySwatch('${c.hex}',this)" title="${c.nome} · ${c.hex}">
+          <span class="moodboard-swatch-tip">${c.nome}<br>${c.hex}</span>
+        </div>`).join('')}
+      </div>
+    </div>`:''}
+    <div class="mb-pin-grid">
+      ${mbPins.map(item=>{
+        const q=item.imagem_query||'interior design';
+        return`<div class="mb-pin-card">
+          <div class="mb-pin-img" onclick="openLightbox('${imgUrl(q).replace(/'/g,"\\'")}')">
+            <img src="" data-q="${q}"  alt="" loading="lazy" onerror="this.parentElement.style.background='var(--light)'">
+            <button class="mb-pin-remove" onclick="event.stopPropagation();removeMbPin('${item.id}')" title="Remover">✕</button>
+          </div>
+          <div class="mb-pin-body">
+            <div class="mb-pin-title">${item.titulo||item.nome||''}</div>
+            <div class="mb-pin-cat">${item.categoria||item.tipo||''}</div>
+            ${item.cores?.length?`<div class="mb-pin-dots">${item.cores.slice(0,5).map(c=>`<span class="mb-pin-dot" style="background:${c.hex}" title="${c.nome}"></span>`).join('')}</div>`:''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function showMoodboardUI(){
+  document.getElementById('output').innerHTML=`<div id="mbOutput"></div>`;
+  renderMoodboard();
+}
+
+function exportMoodboard(){
+  const lines=mbPins.map(p=>`${p.titulo||p.nome||''} — ${p.categoria||''}\n${p.descricao||''}\nCores: ${(p.cores||[]).map(c=>c.nome+' '+c.hex).join(', ')}`);
+  const blob=new Blob([lines.join('\n\n---\n\n')],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='moodboard.txt';a.click();
+}
+
+// ── LIGHTBOX ──────────────────────────────────────────────────
+function openLightbox(src){
+  document.getElementById('mbLightboxImg').src=src;
+  document.getElementById('mbLightbox').classList.add('show');
+}
+function closeLightbox(){document.getElementById('mbLightbox').classList.remove('show')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+
+// ── COMPARADOR ────────────────────────────────────────────────
+const COMPARE_CATS=[
+  {label:'Revestimentos',q:'revestimentos cerâmicos tendências arquitetura 2025'},
+  {label:'Pisos & Forros',q:'pisos porcelanato laminado tendências 2025'},
+  {label:'Pedras Naturais',q:'mármore travertino pedras naturais revestimento 2025'},
+  {label:'Paleta de Cores',q:'paleta de cores interiores design 2025'},
+  {label:'Cores de Marcenaria',q:'cores acabamentos marcenaria móveis planejados 2025'},
+  {label:'Acabamentos Marcenaria',q:'acabamentos marcenaria perfis alumínio tendências 2025'},
+  {label:'Metais & Ferragens',q:'metais ferragens dourado preto inox cobre interiores 2025'},
+  {label:'Materiais Naturais',q:'materiais naturais madeira pedra cimento arquitetura 2025'},
+  {label:'Concreto & Cimento',q:'concreto cimento queimado aparente tendências 2025'},
+  {label:'Mobiliário',q:'móveis mobiliário design interiores 2025'},
+  {label:'Iluminação',q:'iluminação design interiores tendências 2025'},
+  {label:'Biofilia',q:'design biofílico verde natureza arquitetura 2025'},
+];
+let compareData={a:null,b:null};
+function showComparador(){
+  const opts=COMPARE_CATS.map((c,i)=>`<option value="${i}">${c.label}</option>`).join('');
+  document.getElementById('output').innerHTML=`
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-col-header"><div class="compare-col-title">Categoria A</div></div>
+        <div class="compare-col-body">
+          <select class="compare-select" id="selA" onchange="loadCompare('a')"><option value="">Selecione…</option>${opts}</select>
+          <div id="compareA"><div class="compare-loading">Selecione uma categoria</div></div>
+        </div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-col-header"><div class="compare-col-title">Categoria B</div></div>
+        <div class="compare-col-body">
+          <select class="compare-select" id="selB" onchange="loadCompare('b')"><option value="">Selecione…</option>${opts}</select>
+          <div id="compareB"><div class="compare-loading">Selecione uma categoria</div></div>
+        </div>
+      </div>
+    </div>`;
+}
+async function loadCompare(side){
+  const sel=document.getElementById(`sel${side.toUpperCase()}`);
+  const idx=parseInt(sel.value);if(isNaN(idx))return;
+  const cat=COMPARE_CATS[idx];
+  const el=document.getElementById(`compare${side.toUpperCase()}`);
+  el.innerHTML=`<div class="compare-loading"><div class="loader" style="margin:0 auto 10px"></div>Buscando ${cat.label}…</div>`;
+  
+  try{
+    const res=await fetch('/api/search',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'compare',query:cat.q,
+        prompt:'Você é especialista em design de interiores. Retorne SOMENTE JSON: {"resumo":"2 frases.","cores":[{"nome":"Nome","hex":"#HEX"}],"palavras_chave":["p1","p2","p3","p4"],"imagem_query":"3-5 palavras inglês para imagem"}',
+        domains:getAllDomains()})});
+    const json=await res.json();
+    if(!res.ok||!json.ok)throw new Error(json.error||`Erro ${res.status}`);
+    const text=JSON.stringify(json.data);
+    const parsed=json.data;
+    compareData[side]=parsed;
+    el.innerHTML=`
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;border-radius:2px;overflow:hidden;margin-bottom:12px;height:160px">
+        <img style="width:100%;height:100%;object-fit:cover;display:block" src="${imgUrl(parsed.imagem_query)}" alt="${cat.label}" onerror="this.style.display='none'">
+        <img style="width:100%;height:100%;object-fit:cover;display:block" src="${imgUrl(parsed.imagem_query+' detail')}" alt="${cat.label} detail" onerror="this.style.display='none'">
+      </div>
+      <div class="compare-summary">${parsed.resumo}</div>
+      <div class="compare-palette">${(parsed.cores||[]).map(c=>`<div class="compare-dot" style="background:${c.hex}" title="${c.nome} ${c.hex}" onclick="copySwatch('${c.hex}',this)"></div>`).join('')}</div>
+      <div class="compare-kws">${(parsed.palavras_chave||[]).map(k=>`<span class="compare-kw">${k}</span>`).join('')}</div>`;
+  }catch(err){el.innerHTML=`<div class="state-error">${err.message}</div>`}
+}
+
+// ── FOOTER ────────────────────────────────────────────────────
+function renderFooter(fontes){
+  if(!fontes?.length)return'';
+  return`<div class="sources-footer"><div class="sources-footer-label">Fontes consultadas</div>
+    <div class="sources-footer-list">${fontes.map(f=>`<span class="source-pill">${f}</span>`).join('')}</div></div>`;
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+buildSrcGrid();
+updateMbCount();
+updateMbCount();
+</script>
+</body>
+</html>
